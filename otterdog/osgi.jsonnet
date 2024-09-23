@@ -33,7 +33,7 @@ orgs.newOrg('osgi') {
         "osgi.enroute",
         "slf4j-osgi"
       ],
-      value: "********",
+      value: "pass:bots/technology.osgi-technology/oss.sonatype.org/gh-token-password",
       visibility: "selected",
     },
     orgs.newOrgSecret('OSSRH_USERNAME') {
@@ -43,7 +43,7 @@ orgs.newOrg('osgi') {
         "osgi.enroute",
         "slf4j-osgi"
       ],
-      value: "********",
+      value: "pass:bots/technology.osgi-technology/oss.sonatype.org/gh-token-username",
       visibility: "selected",
     },
   ],
