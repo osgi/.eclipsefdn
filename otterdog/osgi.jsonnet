@@ -145,20 +145,6 @@ orgs.newOrg('osgi') {
       homepage: "",
       web_commit_signoff_required: false,
     },
-    orgs.newRepo('jakartarest-osgi') {
-      allow_merge_commit: true,
-      allow_update_branch: false,
-      dependabot_alerts_enabled: false,
-      description: "Glassfish Jersey based implementation of the OSGi Jakarta RESTful Web Services Whiteboard specification",
-      homepage: "https://projects.eclipse.org/projects/technology.osgi-technology",
-      topics+: [
-        "jakarta",
-        "osgi",
-        "rest",
-        "whiteboard"
-      ],
-      web_commit_signoff_required: false,
-    },
     orgs.newRepo('materials') {
       allow_merge_commit: true,
       allow_update_branch: false,
