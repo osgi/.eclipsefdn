@@ -1,6 +1,6 @@
 local orgs = import 'vendor/otterdog-defaults/otterdog-defaults.libsonnet';
 
-orgs.newOrg('osgi') {
+orgs.newOrg('technology.osgi', 'osgi') {
   settings+: {
     blog: "https://www.osgi.org",
     description: "The Dynamic Module System for Java",
