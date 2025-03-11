@@ -202,6 +202,7 @@ orgs.newOrg('technology.osgi', 'osgi') {
         allow_action_patterns+: [
           "gradle/gradle-build-action@*",
           "gradle/actions/wrapper-validation@*",
+          "gradle/actions/setup-gradle@*",
           "peaceiris/actions-gh-pages@*"
         ],
         allow_verified_creator_actions: false,
