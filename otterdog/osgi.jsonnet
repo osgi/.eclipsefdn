@@ -32,18 +32,18 @@ orgs.newOrg('technology.osgi', 'osgi') {
       value: "********",
       visibility: "selected",
     },
-    orgs.newOrgSecret('OSSRH_PASSWORD') {
+    orgs.newOrgSecret('CENTRAL_SONATYPE_TOKEN_PASSWORD') {
       selected_repositories+: [
         "osgi"
       ],
-      value: "pass:bots/technology.osgi-technology/oss.sonatype.org/gh-token-password",
+      value: "pass:bots/technology.osgi-technology/central.sonatype.org/token-password",
       visibility: "selected",
     },
-    orgs.newOrgSecret('OSSRH_USERNAME') {
+    orgs.newOrgSecret('CENTRAL_SONATYPE_TOKEN_USERNAME') {
       selected_repositories+: [
         "osgi"
       ],
-      value: "pass:bots/technology.osgi-technology/oss.sonatype.org/gh-token-username",
+      value: "pass:bots/technology.osgi-technology/central.sonatype.org/token-username",
       visibility: "selected",
     },
   ],
