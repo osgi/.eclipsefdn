@@ -182,7 +182,7 @@ orgs.newOrg('technology.osgi', 'osgi') {
     },
     orgs.newRepo('osgi') {
       allow_merge_commit: true,
-      allow_update_branch: false,
+      allow_update_branch: true,
       dependabot_security_updates_enabled: true,
       description: "OSGi Specification Project Build Repository. Specification, API, implementation, and TCK source code.",
       gh_pages_build_type: "legacy",
