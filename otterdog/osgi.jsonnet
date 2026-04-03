@@ -1,5 +1,23 @@
 local orgs = import 'vendor/otterdog-defaults/otterdog-defaults.libsonnet';
 
+local osgiBranchProtectionRule(branchName) = orgs.newBranchProtectionRule(branchName) {
+  required_approving_review_count: 0,
+  requires_strict_status_checks: true,
+};
+
+local newOSGiRepo(repoName, default_branch = 'main') = orgs.newRepo(repoName) {
+  allow_update_branch: false,
+  default_branch: default_branch,
+  delete_branch_on_merge: false,
+  dependabot_security_updates_enabled: true,
+  has_wiki: false,
+  homepage: "https://www.osgi.org",
+  branch_protection_rules: [
+    osgiBranchProtectionRule($.default_branch) {},
+  ],
+};
+
+
 orgs.newOrg('technology.osgi', 'osgi') {
   settings+: {
     blog: "https://www.osgi.org",
@@ -492,5 +510,13 @@ orgs.newOrg('technology.osgi', 'osgi') {
       secret_scanning_push_protection: "disabled",
       web_commit_signoff_required: false,
     },
+
+    newOSGiRepo('org.osgi.maven.pom') {
+      description: "Maven Parent POM",
+    },
+    newOSGiRepo('org.osgi.framework') {
+      description: "OSGi Framework",
+    },
+
   ],
 }
