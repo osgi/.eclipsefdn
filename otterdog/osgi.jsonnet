@@ -230,6 +230,23 @@ orgs.newOrg('technology.osgi', 'osgi') {
       environments: [
         orgs.newEnvironment('github-pages'),
       ],
+      secrets: [
+        orgs.newRepoSecret('ORG_GPG_KEY_ID') {
+          value: "pass:bots/technology.osgi/gpg/key_id",
+        },
+        orgs.newRepoSecret('ORG_GPG_PASSPHRASE') {
+          value: "pass:bots/technology.osgi/gpg/passphrase",
+        },
+        orgs.newRepoSecret('ORG_GPG_PRIVATE_KEY') {
+          value: "pass:bots/technology.osgi/gpg/secret-subkeys.asc",
+        },
+        orgs.newRepoSecret('OSSRH_USERNAME') {
+          value: "********",
+        },
+        orgs.newRepoSecret('OSSRH_PASSWORD') {
+          value: "********",
+        },
+      ],
     },
     orgs.newRepo('osgi.enroute.blog') {
       allow_merge_commit: true,
