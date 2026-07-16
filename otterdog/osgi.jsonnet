@@ -43,11 +43,25 @@ orgs.newOrg('technology.osgi', 'osgi') {
     },
   ],
   secrets+: [
+    orgs.newOrgSecret('GPG_KEY_ID') {
+      selected_repositories+: [
+        "osgi"
+      ],
+      value: "pass:bots/technology.osgi/gpg/key_id",
+      visibility: "selected",
+    },
+    orgs.newOrgSecret('GPG_PASSPHRASE') {
+      selected_repositories+: [
+        "osgi"
+      ],
+      value: "pass:bots/technology.osgi/gpg/passphrase",
+      visibility: "selected",
+    },
     orgs.newOrgSecret('GPG_PRIVATE_KEY') {
       selected_repositories+: [
         "osgi"
       ],
-      value: "********",
+      value: "pass:bots/technology.osgi/gpg/secret-subkeys.asc",
       visibility: "selected",
     },
     orgs.newOrgSecret('CENTRAL_SONATYPE_TOKEN_PASSWORD') {
