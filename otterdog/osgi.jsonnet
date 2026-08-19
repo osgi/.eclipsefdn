@@ -38,9 +38,6 @@ local newOSGiSpecRepo(repoName, description, default_branch = 'main') = orgs.new
   has_wiki: false,
   homepage: "https://www.osgi.org",
   web_commit_signoff_required: false,
-  custom_properties: {
-    "repo-type": "mvn-multi-repo",
-  },
   branch_protection_rules: [
     osgiSpecBranchProtectionRule($.default_branch) {},
   ],
