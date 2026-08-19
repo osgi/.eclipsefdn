@@ -18,6 +18,34 @@ local newOSGiRepo(repoName, default_branch = 'main') = orgs.newRepo(repoName) {
 };
 
 
+// Spec repos of the Maven multi-repo split: identical settings for all.
+// Relaxed for the history import; fields marked "flip after migration" get strict afterwards.
+local osgiSpecBranchProtectionRule(branchName) = orgs.newBranchProtectionRule(branchName) {
+  required_approving_review_count: 0,
+  requires_pull_request: false,        // flip after migration (allows direct push of imported history)
+  requires_linear_history: false,      // flip after migration (imported history contains merge commits)
+  allows_force_pushes: true,           // flip after migration (allows replacing the bot initial commit)
+  requires_strict_status_checks: true,
+};
+
+local newOSGiSpecRepo(repoName, description, default_branch = 'main') = orgs.newRepo(repoName) {
+  description: description,
+  allow_squash_merge: false,
+  allow_update_branch: false,
+  default_branch: default_branch,
+  delete_branch_on_merge: false,
+  dependabot_security_updates_enabled: true,
+  has_wiki: false,
+  homepage: "https://www.osgi.org",
+  web_commit_signoff_required: false,
+  custom_properties: {
+    "repo-type": "mvn-multi-repo",
+  },
+  branch_protection_rules: [
+    osgiSpecBranchProtectionRule($.default_branch) {},
+  ],
+};
+
 orgs.newOrg('technology.osgi', 'osgi') {
   settings+: {
     blog: "https://www.osgi.org",
@@ -528,9 +556,76 @@ orgs.newOrg('technology.osgi', 'osgi') {
     newOSGiRepo('org.osgi.maven.pom') {
       description: "Maven Parent POM",
     },
-    newOSGiRepo('org.osgi.framework') {
-      description: "OSGi Framework",
-    },
+
+    newOSGiSpecRepo('org.osgi.annotation.bundle', 'OSGi Specification repo for org.osgi.annotation.bundle'),
+    newOSGiSpecRepo('org.osgi.annotation.versioning', 'OSGi Specification repo for org.osgi.annotation.versioning'),
+    newOSGiSpecRepo('org.osgi.dto', 'OSGi Specification repo for org.osgi.dto'),
+    newOSGiSpecRepo('org.osgi.framework', 'OSGi Specification repo for org.osgi.framework'),
+    newOSGiSpecRepo('org.osgi.namespace.contract', 'OSGi Specification repo for org.osgi.namespace.contract'),
+    newOSGiSpecRepo('org.osgi.namespace.extender', 'OSGi Specification repo for org.osgi.namespace.extender'),
+    newOSGiSpecRepo('org.osgi.namespace.implementation', 'OSGi Specification repo for org.osgi.namespace.implementation'),
+    newOSGiSpecRepo('org.osgi.namespace.service', 'OSGi Specification repo for org.osgi.namespace.service'),
+    newOSGiSpecRepo('org.osgi.namespace.unresolvable', 'OSGi Specification repo for org.osgi.namespace.unresolvable'),
+    newOSGiSpecRepo('org.osgi.resource', 'OSGi Specification repo for org.osgi.resource'),
+    newOSGiSpecRepo('org.osgi.service.async', 'OSGi Specification repo for org.osgi.service.async'),
+    newOSGiSpecRepo('org.osgi.service.cdi', 'OSGi Specification repo for org.osgi.service.cdi'),
+    newOSGiSpecRepo('org.osgi.service.clusterinfo', 'OSGi Specification repo for org.osgi.service.clusterinfo'),
+    newOSGiSpecRepo('org.osgi.service.cm', 'OSGi Specification repo for org.osgi.service.cm'),
+    newOSGiSpecRepo('org.osgi.service.component', 'OSGi Specification repo for org.osgi.service.component'),
+    newOSGiSpecRepo('org.osgi.service.component.annotations', 'OSGi Specification repo for org.osgi.service.component.annotations'),
+    newOSGiSpecRepo('org.osgi.service.condition', 'OSGi Specification repo for org.osgi.service.condition'),
+    newOSGiSpecRepo('org.osgi.service.condpermadmin', 'OSGi Specification repo for org.osgi.service.condpermadmin'),
+    newOSGiSpecRepo('org.osgi.service.configurator', 'OSGi Specification repo for org.osgi.service.configurator'),
+    newOSGiSpecRepo('org.osgi.service.coordinator', 'OSGi Specification repo for org.osgi.service.coordinator'),
+    newOSGiSpecRepo('org.osgi.service.dal', 'OSGi Specification repo for org.osgi.service.dal'),
+    newOSGiSpecRepo('org.osgi.service.dal.functions', 'OSGi Specification repo for org.osgi.service.dal.functions'),
+    newOSGiSpecRepo('org.osgi.service.device', 'OSGi Specification repo for org.osgi.service.device'),
+    newOSGiSpecRepo('org.osgi.service.dmt', 'OSGi Specification repo for org.osgi.service.dmt'),
+    newOSGiSpecRepo('org.osgi.service.enocean', 'OSGi Specification repo for org.osgi.service.enocean'),
+    newOSGiSpecRepo('org.osgi.service.event', 'OSGi Specification repo for org.osgi.service.event'),
+    newOSGiSpecRepo('org.osgi.service.feature', 'OSGi Specification repo for org.osgi.service.feature'),
+    newOSGiSpecRepo('org.osgi.service.featurelauncher', 'OSGi Specification repo for org.osgi.service.featurelauncher'),
+    newOSGiSpecRepo('org.osgi.service.jakartars', 'OSGi Specification repo for org.osgi.service.jakartars'),
+    newOSGiSpecRepo('org.osgi.service.jdbc', 'OSGi Specification repo for org.osgi.service.jdbc'),
+    newOSGiSpecRepo('org.osgi.service.jndi', 'OSGi Specification repo for org.osgi.service.jndi'),
+    newOSGiSpecRepo('org.osgi.service.jpa', 'OSGi Specification repo for org.osgi.service.jpa'),
+    newOSGiSpecRepo('org.osgi.service.log', 'OSGi Log Service Specification'),
+    newOSGiSpecRepo('org.osgi.service.log.stream', 'OSGi Specification repo for org.osgi.service.log.stream'),
+    newOSGiSpecRepo('org.osgi.service.metatype', 'OSGi Specification repo for org.osgi.service.metatype'),
+    newOSGiSpecRepo('org.osgi.service.metatype.annotations', 'OSGi Specification repo for org.osgi.service.metatype.annotations'),
+    newOSGiSpecRepo('org.osgi.service.networkadapter', 'OSGi Specification repo for org.osgi.service.networkadapter'),
+    newOSGiSpecRepo('org.osgi.service.onem2m', 'OSGi Specification repo for org.osgi.service.onem2m'),
+    newOSGiSpecRepo('org.osgi.service.packageadmin', 'OSGi Specification repo for org.osgi.service.packageadmin'),
+    newOSGiSpecRepo('org.osgi.service.permissionadmin', 'OSGi Specification repo for org.osgi.service.permissionadmin'),
+    newOSGiSpecRepo('org.osgi.service.prefs', 'OSGi Specification repo for org.osgi.service.prefs'),
+    newOSGiSpecRepo('org.osgi.service.remoteserviceadmin', 'OSGi Specification repo for org.osgi.service.remoteserviceadmin'),
+    newOSGiSpecRepo('org.osgi.service.repository', 'OSGi Specification repo for org.osgi.service.repository'),
+    newOSGiSpecRepo('org.osgi.service.resolver', 'OSGi Specification repo for org.osgi.service.resolver'),
+    newOSGiSpecRepo('org.osgi.service.resourcemonitoring', 'OSGi Specification repo for org.osgi.service.resourcemonitoring'),
+    newOSGiSpecRepo('org.osgi.service.rest', 'OSGi Specification repo for org.osgi.service.rest'),
+    newOSGiSpecRepo('org.osgi.service.serial', 'OSGi Specification repo for org.osgi.service.serial'),
+    newOSGiSpecRepo('org.osgi.service.serviceloader', 'OSGi Specification repo for org.osgi.service.serviceloader'),
+    newOSGiSpecRepo('org.osgi.service.servlet', 'OSGi Servlet (Whiteboard) Specification (formerly Http Whiteboard / Http Service)'),
+    newOSGiSpecRepo('org.osgi.service.startlevel', 'OSGi Specification repo for org.osgi.service.startlevel'),
+    newOSGiSpecRepo('org.osgi.service.tr069todmt', 'OSGi Specification repo for org.osgi.service.tr069todmt'),
+    newOSGiSpecRepo('org.osgi.service.transaction.control', 'OSGi Specification repo for org.osgi.service.transaction.control'),
+    newOSGiSpecRepo('org.osgi.service.typedevent', 'OSGi Specification repo for org.osgi.service.typedevent'),
+    newOSGiSpecRepo('org.osgi.service.upnp', 'OSGi Specification repo for org.osgi.service.upnp'),
+    newOSGiSpecRepo('org.osgi.service.url', 'OSGi Specification repo for org.osgi.service.url'),
+    newOSGiSpecRepo('org.osgi.service.usbinfo', 'OSGi Specification repo for org.osgi.service.usbinfo'),
+    newOSGiSpecRepo('org.osgi.service.useradmin', 'OSGi Specification repo for org.osgi.service.useradmin'),
+    newOSGiSpecRepo('org.osgi.service.webservice', 'OSGi Specification repo for org.osgi.service.webservice'),
+    newOSGiSpecRepo('org.osgi.service.wireadmin', 'OSGi Specification repo for org.osgi.service.wireadmin'),
+    newOSGiSpecRepo('org.osgi.service.zigbee', 'OSGi Specification repo for org.osgi.service.zigbee'),
+    //newOSGiSpecRepo('org.osgi.spec.jta', 'OSGi Transaction Service Specification (legacy'),
+    //newOSGiSpecRepo('org.osgi.spec.war', 'OSGi Web Applications Specification (legacy'),
+    newOSGiSpecRepo('org.osgi.util.converter', 'OSGi Specification repo for org.osgi.util.converter'),
+    newOSGiSpecRepo('org.osgi.util.function', 'OSGi Specification repo for org.osgi.util.function'),
+    newOSGiSpecRepo('org.osgi.util.promise', 'OSGi Specification repo for org.osgi.util.promise'),
+    newOSGiSpecRepo('org.osgi.util.pushstream', 'OSGi Specification repo for org.osgi.util.pushstream'),
+    newOSGiSpecRepo('org.osgi.util.tracker', 'OSGi Specification repo for org.osgi.util.tracker'),
+    newOSGiSpecRepo('org.osgi.util.xml', 'OSGi Specification repo for org.osgi.util.xml'),
+
 
   ],
 }
