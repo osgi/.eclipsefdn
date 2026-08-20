@@ -1,0 +1,41 @@
+id: scorecard-integration
+name: OSSF Scorecard analysis
+description: >-
+  Ensures every spec repo runs the OSSF Scorecard workflow; adds the workflow
+  via remediation PR where missing.
+type: scorecard_integration
+config:
+  repo_selector:
+    name_pattern: org\.osgi\..*
+  workflow_name: scorecard-analysis.yml
+  workflow_content: |
+    # Managed by otterdog blueprint {{blueprint_id}}.
+    name: Scorecard analysis
+    on:
+      branch_protection_rule:
+      schedule:
+        - cron: '43 5 * * 2'
+      push:
+        branches: [ main ]
+    permissions: read-all
+    jobs:
+      analysis:
+        runs-on: ubuntu-latest
+        permissions:
+          security-events: write
+          id-token: write
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+            with:
+              persist-credentials: false
+          - name: Run analysis
+            uses: ossf/scorecard-action@v2
+            with:
+              results_file: results.sarif
+              results_format: sarif
+              publish_results: true
+          - name: Upload to code-scanning
+            uses: github/codeql-action/upload-sarif@v3
+            with:
+              sarif_file: results.sarif
