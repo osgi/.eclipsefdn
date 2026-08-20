@@ -1,0 +1,47 @@
+id: require-ci-workflows
+name: Require identical CI workflows
+description: >-
+  Every spec repo carries the same two workflow stubs; the actual CI
+  logic lives centrally in the reusable workflows of the osgi/.github repo.
+  strict guarantees the pipelines cannot drift between repos — changing the
+  central workflow changes CI for all repos at once.
+type: required_file
+config:
+  repo_selector:
+    name_pattern: org\.osgi\..*
+  files:
+    - path: .github/workflows/build.yml
+      strict: true
+      content: |
+        # Managed by otterdog blueprint {{blueprint_id}}. Do not edit here.
+        # CI logic lives in osgi/.github (reusable workflow).
+        # The weekly schedule keeps a fresh SNAPSHOT in Sonatype Central snapshots.
+        name: build
+        on:
+          push:
+            branches: [ main ]
+          pull_request:
+          workflow_dispatch:
+          schedule:
+            - cron: '23 3 * * 1'
+        jobs:
+          build:
+            uses: osgi/.github/.github/workflows/spec-build.yml@main
+            secrets: inherit
+            with:
+              deploy: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    - path: .github/workflows/verify-structure.yml
+      strict: true
+      content: |
+        # Managed by otterdog blueprint {{blueprint_id}} — do not edit here.
+        # Structure/version conformance checks live in osgi/.github.
+        name: verify-structure
+        on:
+          push:
+            branches: [ main ]
+          pull_request:
+          schedule:
+            - cron: '17 4 * * 1'
+        jobs:
+          verify:
+            uses: osgi/.github/.github/workflows/spec-verify-structure.yml@main
