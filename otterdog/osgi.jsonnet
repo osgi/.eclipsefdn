@@ -45,6 +45,7 @@ local newOSGiSpecRepo(repoName, description, default_branch = 'main') = orgs.new
 
 // All repos of the Maven multi-repo split.
 local specRepoNames = [
+  'org.osgi.test.support',
   'org.osgi.annotation.bundle',
   'org.osgi.annotation.versioning',
   'org.osgi.dto',
@@ -105,8 +106,8 @@ local specRepoNames = [
   'org.osgi.service.webservice',
   'org.osgi.service.wireadmin',
   'org.osgi.service.zigbee',
-//  'org.osgi.spec.jta',
-//  'org.osgi.spec.war',
+  'org.osgi.service.jta',
+  'org.osgi.service.war',
   'org.osgi.util.converter',
   'org.osgi.util.function',
   'org.osgi.util.promise',
