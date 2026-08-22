@@ -622,7 +622,7 @@ orgs.newOrg('technology.osgi', 'osgi') {
     newOSGiSpecRepo('org.osgi.util.pushstream', 'OSGi Specification repo for org.osgi.util.pushstream'),
     newOSGiSpecRepo('org.osgi.util.tracker', 'OSGi Specification repo for org.osgi.util.tracker'),
     newOSGiSpecRepo('org.osgi.util.xml', 'OSGi Specification repo for org.osgi.util.xml'),
-
+    newOSGiSpecRepo('org.osgi.test.support', 'OSGi Test Support repo org.osgi.test.support'),
 
   ],
 }
