@@ -45,6 +45,7 @@ local newOSGiSpecRepo(repoName, description, default_branch = 'main') = orgs.new
 
 // All repos of the Maven multi-repo split.
 local specRepoNames = [
+  'org.osgi.maven.pom',
   'org.osgi.test.support',
   'org.osgi.annotation.bundle',
   'org.osgi.annotation.versioning',
@@ -628,6 +629,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       description: "Maven Parent POM",
     },
 
+    newOSGiSpecRepo('org.osgi.maven.pom', 'Maven Parent POM for all OSGi Specifications'),
+    newOSGiSpecRepo('org.osgi.test.support', 'OSGi Test Support bundle'),
+
     newOSGiSpecRepo('org.osgi.annotation.bundle', 'OSGi Specification repo for org.osgi.annotation.bundle'),
     newOSGiSpecRepo('org.osgi.annotation.versioning', 'OSGi Specification repo for org.osgi.annotation.versioning'),
     newOSGiSpecRepo('org.osgi.dto', 'OSGi Specification repo for org.osgi.dto'),
@@ -688,8 +692,8 @@ orgs.newOrg('technology.osgi', 'osgi') {
     newOSGiSpecRepo('org.osgi.service.webservice', 'OSGi Specification repo for org.osgi.service.webservice'),
     newOSGiSpecRepo('org.osgi.service.wireadmin', 'OSGi Specification repo for org.osgi.service.wireadmin'),
     newOSGiSpecRepo('org.osgi.service.zigbee', 'OSGi Specification repo for org.osgi.service.zigbee'),
-    //newOSGiSpecRepo('org.osgi.spec.jta', 'OSGi Transaction Service Specification (legacy'),
-    //newOSGiSpecRepo('org.osgi.spec.war', 'OSGi Web Applications Specification (legacy'),
+    newOSGiSpecRepo('org.osgi.service.jta', 'OSGi Specification repo for Transaction Service Specification'),
+    newOSGiSpecRepo('org.osgi.service.war', 'OSGi Specification repo for Web Applications Specification'),
     newOSGiSpecRepo('org.osgi.util.converter', 'OSGi Specification repo for org.osgi.util.converter'),
     newOSGiSpecRepo('org.osgi.util.function', 'OSGi Specification repo for org.osgi.util.function'),
     newOSGiSpecRepo('org.osgi.util.promise', 'OSGi Specification repo for org.osgi.util.promise'),
