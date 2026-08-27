@@ -43,6 +43,81 @@ local newOSGiSpecRepo(repoName, description, default_branch = 'main') = orgs.new
   ],
 };
 
+// All repos of the Maven multi-repo split.
+local specRepoNames = [
+  'org.osgi.maven.pom',
+  'org.osgi.test.support',
+  'org.osgi.annotation.bundle',
+  'org.osgi.annotation.versioning',
+  'org.osgi.dto',
+  'org.osgi.framework',
+  'org.osgi.namespace.contract',
+  'org.osgi.namespace.extender',
+  'org.osgi.namespace.implementation',
+  'org.osgi.namespace.service',
+  'org.osgi.namespace.unresolvable',
+  'org.osgi.resource',
+  'org.osgi.service.async',
+  'org.osgi.service.cdi',
+  'org.osgi.service.clusterinfo',
+  'org.osgi.service.cm',
+  'org.osgi.service.component',
+  'org.osgi.service.component.annotations',
+  'org.osgi.service.condition',
+  'org.osgi.service.condpermadmin',
+  'org.osgi.service.configurator',
+  'org.osgi.service.coordinator',
+  'org.osgi.service.dal',
+  'org.osgi.service.dal.functions',
+  'org.osgi.service.device',
+  'org.osgi.service.dmt',
+  'org.osgi.service.enocean',
+  'org.osgi.service.event',
+  'org.osgi.service.feature',
+  'org.osgi.service.featurelauncher',
+  'org.osgi.service.jakartars',
+  'org.osgi.service.jdbc',
+  'org.osgi.service.jndi',
+  'org.osgi.service.jpa',
+  'org.osgi.service.log',
+  'org.osgi.service.log.stream',
+  'org.osgi.service.metatype',
+  'org.osgi.service.metatype.annotations',
+  'org.osgi.service.networkadapter',
+  'org.osgi.service.onem2m',
+  'org.osgi.service.packageadmin',
+  'org.osgi.service.permissionadmin',
+  'org.osgi.service.prefs',
+  'org.osgi.service.remoteserviceadmin',
+  'org.osgi.service.repository',
+  'org.osgi.service.resolver',
+  'org.osgi.service.resourcemonitoring',
+  'org.osgi.service.rest',
+  'org.osgi.service.serial',
+  'org.osgi.service.serviceloader',
+  'org.osgi.service.servlet',
+  'org.osgi.service.startlevel',
+  'org.osgi.service.tr069todmt',
+  'org.osgi.service.transaction.control',
+  'org.osgi.service.typedevent',
+  'org.osgi.service.upnp',
+  'org.osgi.service.url',
+  'org.osgi.service.usbinfo',
+  'org.osgi.service.useradmin',
+  'org.osgi.service.webservice',
+  'org.osgi.service.wireadmin',
+  'org.osgi.service.zigbee',
+  'org.osgi.service.jta',
+  'org.osgi.service.war',
+  'org.osgi.util.converter',
+  'org.osgi.util.function',
+  'org.osgi.util.promise',
+  'org.osgi.util.pushstream',
+  'org.osgi.util.tracker',
+  'org.osgi.util.xml',
+];
+
+
 orgs.newOrg('technology.osgi', 'osgi') {
   settings+: {
     blog: "https://www.osgi.org",
@@ -71,35 +146,35 @@ orgs.newOrg('technology.osgi', 'osgi') {
     orgs.newOrgSecret('GPG_KEY_ID') {
       selected_repositories+: [
         "osgi"
-      ],
+      ] + specRepoNames,
       value: "pass:bots/technology.osgi/gpg/key_id",
       visibility: "selected",
     },
     orgs.newOrgSecret('GPG_PASSPHRASE') {
       selected_repositories+: [
         "osgi"
-      ],
+      ] + specRepoNames,
       value: "pass:bots/technology.osgi/gpg/passphrase",
       visibility: "selected",
     },
     orgs.newOrgSecret('GPG_PRIVATE_KEY') {
       selected_repositories+: [
         "osgi"
-      ],
+      ] + specRepoNames,
       value: "pass:bots/technology.osgi/gpg/secret-subkeys.asc",
       visibility: "selected",
     },
     orgs.newOrgSecret('CENTRAL_SONATYPE_TOKEN_PASSWORD') {
       selected_repositories+: [
         "osgi"
-      ],
+      ] + specRepoNames,
       value: "pass:bots/technology.osgi-technology/central.sonatype.org/token-password",
       visibility: "selected",
     },
     orgs.newOrgSecret('CENTRAL_SONATYPE_TOKEN_USERNAME') {
       selected_repositories+: [
         "osgi"
-      ],
+      ] + specRepoNames,
       value: "pass:bots/technology.osgi-technology/central.sonatype.org/token-username",
       visibility: "selected",
     },
@@ -554,6 +629,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       description: "Maven Parent POM",
     },
 
+    newOSGiSpecRepo('org.osgi.maven.pom', 'Maven Parent POM for all OSGi Specifications'),
+    newOSGiSpecRepo('org.osgi.test.support', 'OSGi Test Support bundle'),
+
     newOSGiSpecRepo('org.osgi.annotation.bundle', 'OSGi Specification repo for org.osgi.annotation.bundle'),
     newOSGiSpecRepo('org.osgi.annotation.versioning', 'OSGi Specification repo for org.osgi.annotation.versioning'),
     newOSGiSpecRepo('org.osgi.dto', 'OSGi Specification repo for org.osgi.dto'),
@@ -614,15 +692,15 @@ orgs.newOrg('technology.osgi', 'osgi') {
     newOSGiSpecRepo('org.osgi.service.webservice', 'OSGi Specification repo for org.osgi.service.webservice'),
     newOSGiSpecRepo('org.osgi.service.wireadmin', 'OSGi Specification repo for org.osgi.service.wireadmin'),
     newOSGiSpecRepo('org.osgi.service.zigbee', 'OSGi Specification repo for org.osgi.service.zigbee'),
-    //newOSGiSpecRepo('org.osgi.spec.jta', 'OSGi Transaction Service Specification (legacy'),
-    //newOSGiSpecRepo('org.osgi.spec.war', 'OSGi Web Applications Specification (legacy'),
+    newOSGiSpecRepo('org.osgi.service.jta', 'OSGi Specification repo for Transaction Service Specification'),
+    newOSGiSpecRepo('org.osgi.service.war', 'OSGi Specification repo for Web Applications Specification'),
     newOSGiSpecRepo('org.osgi.util.converter', 'OSGi Specification repo for org.osgi.util.converter'),
     newOSGiSpecRepo('org.osgi.util.function', 'OSGi Specification repo for org.osgi.util.function'),
     newOSGiSpecRepo('org.osgi.util.promise', 'OSGi Specification repo for org.osgi.util.promise'),
     newOSGiSpecRepo('org.osgi.util.pushstream', 'OSGi Specification repo for org.osgi.util.pushstream'),
     newOSGiSpecRepo('org.osgi.util.tracker', 'OSGi Specification repo for org.osgi.util.tracker'),
     newOSGiSpecRepo('org.osgi.util.xml', 'OSGi Specification repo for org.osgi.util.xml'),
-
+    newOSGiSpecRepo('org.osgi.test.support', 'OSGi Test Support repo org.osgi.test.support'),
 
   ],
 }
