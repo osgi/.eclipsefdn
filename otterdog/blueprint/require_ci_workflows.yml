@@ -1,7 +1,7 @@
 id: require-ci-workflows
 name: Require identical CI workflows
 description: >-
-  Every spec repo carries the same two workflow stubs; the actual CI
+  Every spec repo carries the same workflow stubs; the actual CI
   logic lives centrally in the reusable workflows of the osgi/.github repo.
   strict guarantees the pipelines cannot drift between repos — changing the
   central workflow changes CI for all repos at once.
@@ -30,18 +30,19 @@ config:
             secrets: inherit
             with:
               deploy: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
-    - path: .github/workflows/verify-structure.yml
+    - path: .github/workflows/release.yml
       strict: true
       content: |
-        # Managed by otterdog blueprint {{blueprint_id}} — do not edit here.
-        # Structure/version conformance checks live in osgi/.github.
-        name: verify-structure
+        # Managed by otterdog blueprint {{blueprint_id}}. Do not edit here.
+        # CI logic lives in osgi/.github (reusable workflow).
+        # A release is cut by pushing a tag that equals the pom version (no prefix);
+        # the central workflow refuses a tag that does not match .mvn/maven.config.
+        name: release
         on:
           push:
-            branches: [ main ]
-          pull_request:
-          schedule:
-            - cron: '17 4 * * 1'
+            tags:
+              - '[0-9]*.[0-9]*.[0-9]*'
         jobs:
-          verify:
-            uses: osgi/.github/.github/workflows/spec-verify-structure.yml@main
+          release:
+            uses: osgi/.github/.github/workflows/spec-release.yml@main
+            secrets: inherit
