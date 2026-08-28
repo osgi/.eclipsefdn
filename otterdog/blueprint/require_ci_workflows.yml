@@ -8,7 +8,9 @@ description: >-
 type: required_file
 config:
   repo_selector:
-    name_pattern: org\.osgi\..*
+    # all spec repos; org.osgi.maven.pom has its own repo-local workflows
+    # (it is no reactor and does not follow the spec repo conventions)
+    name_pattern: org\.osgi\.(?!maven\.pom).*
   files:
     - path: .github/workflows/build.yml
       strict: true
