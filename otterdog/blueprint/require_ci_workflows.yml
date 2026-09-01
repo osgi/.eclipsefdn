@@ -17,7 +17,8 @@ config:
       content: |
         # Managed by otterdog blueprint {{blueprint_id}}. Do not edit here.
         # CI logic lives in osgi/.github (reusable workflow).
-        # The weekly schedule keeps a fresh SNAPSHOT in Sonatype Central snapshots.
+        # Every push to main deploys a fresh SNAPSHOT to Sonatype Central
+        # snapshots; the weekly schedule keeps it fresh in quiet times.
         name: build
         on:
           push:
@@ -31,7 +32,7 @@ config:
             uses: osgi/.github/.github/workflows/spec-build.yml@main
             secrets: inherit
             with:
-              deploy: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+              deploy: ${{ github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
     - path: .github/workflows/release.yml
       strict: true
       content: |
