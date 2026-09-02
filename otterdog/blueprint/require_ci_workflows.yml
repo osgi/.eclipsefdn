@@ -27,6 +27,9 @@ config:
           workflow_dispatch:
           schedule:
             - cron: '23 3 * * 1'
+        permissions:
+          contents: read
+          checks: write
         jobs:
           build:
             uses: osgi/.github/.github/workflows/spec-build.yml@main
