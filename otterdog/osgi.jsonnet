@@ -21,7 +21,7 @@ local newOSGiRepo(repoName, default_branch = 'main') = orgs.newRepo(repoName) {
 // Spec repos of the Maven multi-repo split: identical settings for all.
 // Relaxed for the history import; fields marked "flip after migration" get strict afterwards.
 local osgiSpecBranchProtectionRule(branchName) = orgs.newBranchProtectionRule(branchName) {
-  required_approving_review_count: 0,
+  required_approving_review_count: 1,
   requires_pull_request: false,        // flip after migration (allows direct push of imported history)
   requires_linear_history: false,      // flip after migration (imported history contains merge commits)
   allows_force_pushes: true,           // flip after migration (allows replacing the bot initial commit)
