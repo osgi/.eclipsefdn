@@ -68,4 +68,21 @@ config:
         .classpath
         .project
         .settings/
+    # not strict: repos may add per-repo ignores or tune the schedule
+    - path: .github/dependabot.yml
+      strict: false
+      content: |
+        # Dependabot watches the Maven build and the workflow actions;
+        # some dependency versions are managed by the parent pom
+        # (org.osgi:org.osgi.maven.pom.parent).
+        version: 2
+        updates:
+          - package-ecosystem: maven
+            directory: "/"
+            schedule:
+              interval: weekly
+          - package-ecosystem: github-actions
+            directory: "/"
+            schedule:
+              interval: weekly
 

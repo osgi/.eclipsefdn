@@ -29,9 +29,12 @@ config:
             - cron: '23 3 * * 1'
         permissions:
           contents: read
-          checks: write
         jobs:
           build:
+            permissions:
+              contents: read
+              # the TCK test report is published as a check run
+              checks: write
             uses: osgi/.github/.github/workflows/spec-build.yml@main
             secrets: inherit
             with:
@@ -48,6 +51,8 @@ config:
           push:
             tags:
               - '[0-9]*.[0-9]*.[0-9]*'
+        permissions:
+          contents: read
         jobs:
           release:
             uses: osgi/.github/.github/workflows/spec-release.yml@main
