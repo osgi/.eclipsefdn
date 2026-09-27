@@ -68,6 +68,7 @@ config:
         .classpath
         .project
         .settings/
+        .flattened-pom.xml
     # not strict: repos may add per-repo ignores or tune the schedule
     - path: .github/dependabot.yml
       strict: false
