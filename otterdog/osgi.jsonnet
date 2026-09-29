@@ -1,7 +1,7 @@
 local orgs = import 'vendor/otterdog-defaults/otterdog-defaults.libsonnet';
 
 local osgiBranchProtectionRule(branchName) = orgs.newBranchProtectionRule(branchName) {
-  required_approving_review_count: 0,
+  required_approving_review_count: 1,
   requires_strict_status_checks: true,
 };
 
