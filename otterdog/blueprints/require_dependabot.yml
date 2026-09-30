@@ -1,23 +1,23 @@
 id: require-dependabot
 name: Require the Dependabot configuration of the spec repos
 description: >-
-  Every spec repo gets the same Dependabot configuration: Maven only, with
-  the JUnit updates in one group. The workflows of the spec repos come from
-  otterdog blueprints, so their actions are updated in these blueprints and
-  not by Dependabot in the repos. org.osgi.maven.pom has repo-local workflows
-  and keeps its own configuration.
+  Every org.osgi.* repo (spec repos and the parent pom) gets the same
+  Dependabot configuration: Maven only, with the JUnit updates in one group.
+  The workflows of the repos are stubs from otterdog blueprints; every action
+  version lives in the reusable workflows of osgi/.github and is updated by
+  Dependabot there, not in the repos.
 type: required_file
 config:
   repo_selector:
-    name_pattern: org\.osgi\.(?!maven\.pom).*
+    name_pattern: org\.osgi\..*
   files:
     - path: .github/dependabot.yml
       strict: true
       content: |
         # Dependabot watches the Maven build; some dependency versions are
         # managed by the parent pom (org.osgi:org.osgi.maven.pom.parent).
-        # The workflows come from otterdog blueprints: their actions are
-        # updated in osgi/.eclipsefdn, not here.
+        # The workflows are stubs from otterdog blueprints: their actions
+        # live in osgi/.github and are updated there, not here.
         version: 2
         updates:
           - package-ecosystem: maven

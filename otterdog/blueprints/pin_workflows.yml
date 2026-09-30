@@ -3,10 +3,13 @@ name: Pin GitHub Actions to commit SHAs
 description: >-
   Supply-chain hardening: every used action / reusable workflow gets pinned to
   a full commit SHA (with a version comment). Opt-out per line via
-  "# ignore: pin". Note: the "uses: osgi/.github/..." references from the
-  require-ci-workflows blueprint stay on @main deliberately — pinning them
-  would defeat the central-update mechanism; mark them with "# ignore: pin"
-  if this blueprint proposes pinning there.
+  "# ignore: pin". Note: the "uses: osgi/.github/..." references of the
+  workflow stubs (require-ci-workflows, require-ci-workflows-pom,
+  codeql-analysis, scorecard-integration) stay on @main deliberately, which
+  this blueprint skips. When those stubs move to a tag, write the commit SHA
+  with a version comment or "@v1 # ignore: pin" in the blueprint itself:
+  otherwise this blueprint pins the tag in the repo and the strict stub
+  resets it again.
 type: pin_workflow
 config:
   repo_selector:
