@@ -1,16 +1,15 @@
-id: require-ci-workflows
-name: Require identical CI workflows
+id: require-ci-workflows-pom
+name: Require the CI workflow stubs of the parent pom
 description: >-
-  Every spec repo carries the same workflow stubs; the actual CI
-  logic lives centrally in the reusable workflows of the osgi/.github repo.
-  strict guarantees the pipelines cannot drift between repos — changing the
-  central workflow changes CI for all repos at once.
+  org.osgi.maven.pom uses the same central reusable workflows as the spec
+  repos (osgi/.github spec-build.yml and spec-release.yml), so every action
+  version lives in one place. Its stubs differ from require-ci-workflows in
+  one line only: structure: false, because the parent pom is no reactor with
+  .mvn/maven.config revision and TCK runs.
 type: required_file
 config:
   repo_selector:
-    # all spec repos; org.osgi.maven.pom gets the same stubs with
-    # structure: false from require-ci-workflows-pom
-    name_pattern: org\.osgi\.(?!maven\.pom).*
+    name_pattern: org\.osgi\.maven\.pom
   files:
     - path: .github/workflows/build.yml
       strict: true
@@ -38,6 +37,8 @@ config:
             uses: osgi/.github/.github/workflows/spec-build.yml@main
             secrets: inherit
             with:
+              # the parent pom is no reactor: no spec repo structure checks
+              structure: false
               deploy: ${{ github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
     - path: .github/workflows/release.yml
       strict: true
@@ -45,7 +46,7 @@ config:
         # Managed by otterdog blueprint {{blueprint_id}}. Do not edit here.
         # CI logic lives in osgi/.github (reusable workflow).
         # A release is cut by pushing a tag that equals the pom version (no prefix);
-        # the central workflow refuses a tag that does not match .mvn/maven.config.
+        # the central workflow refuses a tag that does not match the pom version.
         name: release
         on:
           push:
