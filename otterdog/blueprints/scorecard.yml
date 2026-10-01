@@ -1,4 +1,4 @@
-id: scorecard-integration
+id: scorecard-analysis
 name: OSSF Scorecard analysis
 description: >-
   Every org.osgi.* repo runs the OSSF Scorecard workflow and publishes its
@@ -7,7 +7,10 @@ description: >-
   Scorecard API verifies that file, see its job_workflow_ref). This is a
   required_file and not a scorecard_integration blueprint: otterdog's
   scorecard_integration only recognises a direct ossf/scorecard-action step
-  and would keep proposing the inline workflow for a stub.
+  and would keep proposing the inline workflow for a stub. The id had to
+  change as well: otterdog keeps the type in the primary key of a blueprint
+  and never updates it, so the old id stayed a scorecard_integration
+  blueprint. Under the new id it is inserted fresh with the right type.
 type: required_file
 config:
   repo_selector:

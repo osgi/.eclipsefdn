@@ -1,3 +1,8 @@
+# Touched again on purpose: otterdog only stores a changed file content
+# when the description of the blueprint did not change in the same
+# commit (update_or_create_blueprint short-circuits on the first change
+# it finds). The stub content below reached the repos only after this
+# second commit; do not change the description and the content together.
 id: codeql-analysis
 name: CodeQL analysis
 description: >-
