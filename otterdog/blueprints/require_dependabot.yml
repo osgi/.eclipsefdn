@@ -11,7 +11,7 @@ description: >-
 type: required_file
 config:
   repo_selector:
-    name_pattern: org\.osgi\..*
+    name_pattern: '(org\.osgi\..*|osgi\.(annotation|cmpn|core|promise))'
   files:
     - path: .github/dependabot.yml
       strict: true

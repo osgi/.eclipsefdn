@@ -117,6 +117,11 @@ local specRepoNames = [
   'org.osgi.util.pushstream',
   'org.osgi.util.tracker',
   'org.osgi.util.xml',
+  // aggregates: jars and books from pinned versions of the spec repos
+  'osgi.annotation',
+  'osgi.cmpn',
+  'osgi.core',
+  'osgi.promise',
 ];
 
 
@@ -704,6 +709,10 @@ orgs.newOrg('technology.osgi', 'osgi') {
     newOSGiSpecRepo('org.osgi.util.pushstream', 'OSGi Specification repo for org.osgi.util.pushstream'),
     newOSGiSpecRepo('org.osgi.util.tracker', 'OSGi Specification repo for org.osgi.util.tracker'),
     newOSGiSpecRepo('org.osgi.util.xml', 'OSGi Specification repo for org.osgi.util.xml'),
+    newOSGiSpecRepo('osgi.annotation', 'OSGi Annotation Release: the osgi.annotation jar'),
+    newOSGiSpecRepo('osgi.cmpn', 'OSGi Compendium Release: the Compendium specification book'),
+    newOSGiSpecRepo('osgi.core', 'OSGi Core Release: the osgi.core jar and the Core specification book'),
+    newOSGiSpecRepo('osgi.promise', 'OSGi Promise Release: the osgi.promise jar'),
     newOSGiSpecRepo('org.osgi.test.support', 'OSGi Test Support repo org.osgi.test.support'),
 
   ],

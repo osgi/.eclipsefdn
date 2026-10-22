@@ -13,4 +13,4 @@ description: >-
 type: pin_workflow
 config:
   repo_selector:
-    name_pattern: org\.osgi\..*
+    name_pattern: '(org\.osgi\..*|osgi\.(annotation|cmpn|core|promise))'

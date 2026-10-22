@@ -10,7 +10,7 @@ config:
   repo_selector:
     # all spec repos; org.osgi.maven.pom gets the same stubs with
     # structure: false from require-ci-workflows-pom
-    name_pattern: org\.osgi\.(?!maven\.pom).*
+    name_pattern: '(org\.osgi\.(?!maven\.pom).*|osgi\.(annotation|cmpn|core|promise))'
   files:
     - path: .github/workflows/build.yml
       strict: true
