@@ -1,3 +1,6 @@
+# Touched again on purpose, as codeql.yml: otterdog stores a changed file
+# content only when the description did not change in the same commit, so
+# the exclude-paths content of the previous commit did not reach the repos.
 id: require-dependabot
 name: Require the Dependabot configuration of the spec repos
 description: >-
@@ -16,6 +19,7 @@ config:
     - path: .github/dependabot.yml
       strict: true
       content: |
+        # Managed by otterdog blueprint {{blueprint_id}}. Do not edit here.
         # Dependabot watches the Maven build; some dependency versions are
         # managed by the parent pom (org.osgi:org.osgi.maven.pom.parent).
         # The workflows are stubs from otterdog blueprints: their actions
