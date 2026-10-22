@@ -2,7 +2,9 @@ id: require-dependabot
 name: Require the Dependabot configuration of the spec repos
 description: >-
   Every org.osgi.* repo (spec repos and the parent pom) gets the same
-  Dependabot configuration: Maven only, with the JUnit updates in one group.
+  Dependabot configuration: Maven only, with the JUnit updates in one group,
+  and without the api and spec modules, whose dependencies are the versions
+  the API really needs.
   The workflows of the repos are stubs from otterdog blueprints; every action
   version lives in the reusable workflows of osgi/.github and is updated by
   Dependabot there, not in the repos.
@@ -24,6 +26,12 @@ config:
             directory: "/"
             schedule:
               interval: weekly
+            # The API states the versions it really needs; they change with
+            # the API, not with every new release. The spec module compiles
+            # the same sources with the same dependencies.
+            exclude-paths:
+              - "api/**"
+              - "spec/**"
             groups:
               # Jupiter and Platform only work together: one pull request
               junit:
