@@ -32,6 +32,19 @@ config:
             exclude-paths:
               - "api/**"
               - "spec/**"
+            # The TCK tests the API in the versions the specification
+            # states: only external dependencies are updated. The support
+            # artifacts of the TCK (org.osgi.tck) are updated, and so is
+            # osgi-test (org.osgi:org.osgi.test.*).
+            ignore:
+              - dependency-name: "org.osgi:org.osgi.annotation.*"
+              - dependency-name: "org.osgi:org.osgi.dto"
+              - dependency-name: "org.osgi:org.osgi.framework"
+              - dependency-name: "org.osgi:org.osgi.impl.*"
+              - dependency-name: "org.osgi:org.osgi.namespace.*"
+              - dependency-name: "org.osgi:org.osgi.resource"
+              - dependency-name: "org.osgi:org.osgi.service.*"
+              - dependency-name: "org.osgi:org.osgi.util.*"
             groups:
               # Jupiter and Platform only work together: one pull request
               junit:
