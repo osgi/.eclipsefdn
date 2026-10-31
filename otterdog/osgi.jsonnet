@@ -197,6 +197,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       has_projects: false,
       has_wiki: false,
       web_commit_signoff_required: false,
+      branch_protection_rules: [
+        osgiBranchProtectionRule('main') {},
+      ],
     },
     orgs.newRepo('bindex') {
       allow_merge_commit: true,
@@ -285,6 +288,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       environments: [
         orgs.newEnvironment('github-pages'),
       ],
+      branch_protection_rules: [
+        osgiBranchProtectionRule('gh-pages') {},
+      ],
     },
     orgs.newRepo('eclipse-ata') {
       allow_merge_commit: true,
@@ -318,6 +324,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       has_wiki: false,
       homepage: "",
       web_commit_signoff_required: false,
+      branch_protection_rules: [
+        osgiBranchProtectionRule('main') {},
+      ],
     },
     orgs.newRepo('osgi') {
       allow_merge_commit: true,
@@ -350,6 +359,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       },
       environments: [
         orgs.newEnvironment('github-pages'),
+      ],
+      branch_protection_rules: [
+        osgiBranchProtectionRule('main') {},
       ],
     },
     orgs.newRepo('osgi.enroute.blog') {
@@ -618,6 +630,9 @@ orgs.newOrg('technology.osgi', 'osgi') {
       description: "Example code for the OSGi Whiteboard Pattern whitepaper",
       homepage: "https://docs.osgi.org/whitepaper/whiteboard-pattern/",
       web_commit_signoff_required: false,
+      branch_protection_rules: [
+        osgiBranchProtectionRule('master') {},
+      ],
     },
     orgs.newRepo('workspace') {
       allow_merge_commit: true,
