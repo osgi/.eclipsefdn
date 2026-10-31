@@ -366,6 +366,23 @@ orgs.newOrg('technology.osgi', 'osgi') {
       ],
       branch_protection_rules: [
         osgiBranchProtectionRule('main') {},
+        // the monorepo as it was before the split (tag monorepo-final): read-only
+        osgiBranchProtectionRule('main_archive') {
+          lock_branch: true,
+        },
+      ],
+      rulesets: [
+        // the release tags and monorepo-final are the archive: no one moves or deletes them
+        orgs.newRepoRuleset('tags') {
+          target: "tag",
+          include_refs: [
+            "~ALL"
+          ],
+          allows_creations: true,
+          allows_updates: false,
+          required_pull_request: null,
+          required_status_checks: null,
+        },
       ],
     },
     orgs.newRepo('osgi.enroute.blog') {
