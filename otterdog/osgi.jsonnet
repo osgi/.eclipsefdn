@@ -295,11 +295,15 @@ orgs.newOrg('technology.osgi', 'osgi') {
     orgs.newRepo('eclipse-ata') {
       allow_merge_commit: true,
       allow_update_branch: false,
+      archived: true,
       delete_branch_on_merge: false,
       dependabot_alerts_enabled: false,
       description: "OSGi Assets to Transfer",
       private: true,
       web_commit_signoff_required: false,
+      branch_protection_rules: [
+        osgiBranchProtectionRule('main') {},
+      ],
     },
     orgs.newRepo('eclipsecon') {
       allow_merge_commit: true,
