@@ -136,15 +136,6 @@ orgs.newOrg('technology.osgi', 'osgi') {
       actions_can_approve_pull_request_reviews: false,
     },
   },
-  teams+: [
-    orgs.newTeam('Organization Owners') {
-      members+: [
-        "bjhargrave",
-        "bosschaert",
-        "eclipsewebmaster"
-      ],
-    },
-  ],
   secrets+: [
     orgs.newOrgSecret('GPG_KEY_ID') {
       selected_repositories+: [
