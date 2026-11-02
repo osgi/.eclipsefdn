@@ -130,9 +130,6 @@ orgs.newOrg('technology.osgi', 'osgi') {
     description: "The Dynamic Module System for Java",
     members_can_fork_private_repositories: true,
     name: "OSGi Working Group",
-    security_managers+: [
-      "osgi-security-team"
-    ],
     twitter_username: "OSGiWG",
     web_commit_signoff_required: false,
     workflows+: {
